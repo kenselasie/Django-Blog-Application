@@ -25,7 +25,7 @@ SECRET_KEY = '=(l$fqbk=abll*0bdtt(ftsd!=9%tl0_k_x(0u$5ht1kdi%73='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'rest_framework',
-    'User'
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'User.Users'
+AUTH_USER_MODEL = 'users.Users'
 
 WSGI_APPLICATION = 'aNewsApp.wsgi.application'
 
@@ -96,9 +96,9 @@ WSGI_APPLICATION = 'aNewsApp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'NewsApp',
-        'USER': 'kennedy',
-        'PASSWORD': 'kennedy',
+        'NAME': 'BlogNewsApp',
+        'USER': 'root',
+        'PASSWORD': 'peace!!!!!',
         'HOST': 'localhost',
         'PORT': '3306'
     }
