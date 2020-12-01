@@ -12,6 +12,11 @@ class MyAccountManager(BaseUserManager):
 
         user = self.model(
             email = self.normalize_email(email),
+            password = password,
+            username = username,
+            # firstname = firstname,
+            # lastname = lastname,
+            # phone_num = phone_num,
              **extraarguments
         )
 
@@ -20,44 +25,43 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    # def create_user(self, email=None, password=None, **extra_fields):
-    #     print('this is the password')
-    #     return self._create_user(email, password, **extra_fields)
-
-    def create_superuser(self, email, firstname, username, password):
+    def create_superuser(self, email, password, **extraarguments):
         user = self.create_user(
             email = self.normalize_email(email),
             password = password,
-            username = username,
-            firstname = firstname
-
+            **extraarguments
         )
-
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
+
         user.save(using=self._db)
+
         return user
         
 
 class Users(AbstractBaseUser):
 
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    firstname = models.CharField(max_length=60, default=None, null=True)
+    firstname = models.CharField(max_length=60, default=None)
     lastname = models.CharField(max_length=60, default=None, null=True)
     othernames = models.CharField(max_length=60, default=None, null=True, blank=True)
-    username = models.CharField(max_length=60, unique=True) # Required
     phone_num = models.CharField(max_length=60, unique=True)
+    profile = models.CharField(max_length=700, default=None, null=True)
+    dependent = models.ForeignKey('self', default=None, null=True, on_delete=models.CASCADE)
+    role = models.CharField(max_length=60, default='Owner')
+
+    username = models.CharField(max_length=60, unique=True) # Required
     is_active = models.BooleanField(default=True) # Required - user can login
     is_staff = models.BooleanField(default=False) # Required
     is_superuser = models.BooleanField(default=False) # Required
     is_admin = models.IntegerField(default=None, null=True) # Required
-    created_at = models.DateTimeField(auto_now_add= True)
+    date_joined = models.DateTimeField(auto_now_add= True) # Required
 
     objects = MyAccountManager()
     
     USERNAME_FIELD = 'email' # what you want them to login with, and to be represented as
-    REQUIRED_FIELDS = ['username']  # Any extra required field aside email and password 
+    REQUIRED_FIELDS = ['username', 'firstname', 'lastname', 'phone_num']  # Any extra required field aside email and password 
     EMAIL_FIELD = 'email'   # 
 
     def __str__(self):
@@ -68,3 +72,5 @@ class Users(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+    class Meta: 
+        verbose_name = 'All User'

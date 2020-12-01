@@ -1,6 +1,16 @@
 from django.contrib import admin
-# from django.contrib.auth.admin import UserAdmin
-# from .models import Users
-# Register your models here.
+from django.contrib.auth.admin import UserAdmin
+from .models import Users
 
-# admin.site.register(Users, UserAdmin)
+
+
+class MyUserAdmin(UserAdmin):
+    list_display = ('id', 'email', 'firstname', 'username', 'date_joined', 'last_login', 'is_admin') # Whats going to be displayed as headers in the admin
+    search_fields = ('email', 'username')
+    readonly_fields = ('date_joined', 'last_login')
+
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
+
+admin.site.register(Users, MyUserAdmin)
