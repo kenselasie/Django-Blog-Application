@@ -12,3 +12,6 @@ class Post(models.Model):
     profile_image = models.ImageField(upload_to="images/userlogo/", null=True, blank=True, default=None)
     text = models.TextField(max_length=3000, default=None, null=True)
     created_at = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return f'{self.title} authored by {self.author.username}'
