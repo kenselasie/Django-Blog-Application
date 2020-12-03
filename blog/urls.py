@@ -1,9 +1,9 @@
 from django.urls import include, path
 from . import views
-from .views import PostsView
+from .views import PostList
 
 
 urlpatterns = [
     # Using class based views - APIViews
-    path('', PostsView.as_view())
+    path('', PostList.as_view())
 ]

@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
 class MyAccountManager(BaseUserManager):
-    def create_user(self, email, username, password,**extraarguments):
+    def create_user(self, email, username, password, **extraarguments):
         if not email:
             raise ValueError('User must have an email address')
         if not password:
@@ -12,7 +12,7 @@ class MyAccountManager(BaseUserManager):
 
         user = self.model(
             email = self.normalize_email(email),
-            password = password,
+            # password = password,
             username = username,
             # firstname = firstname,
             # lastname = lastname,
@@ -55,7 +55,7 @@ class Users(AbstractBaseUser):
     is_active = models.BooleanField(default=True) # Required - user can login
     is_staff = models.BooleanField(default=False) # Required
     is_superuser = models.BooleanField(default=False) # Required
-    is_admin = models.IntegerField(default=None, null=True) # Required
+    is_admin = models.IntegerField(default=0) # Required
     date_joined = models.DateTimeField(auto_now_add= True) # Required
 
     objects = MyAccountManager()
@@ -73,4 +73,4 @@ class Users(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
     class Meta: 
-        verbose_name = 'All User'
+        verbose_name = 'User'

@@ -5,7 +5,7 @@ from .models import Users
 
 
 class MyUserAdmin(UserAdmin):
-    list_display = ('id', 'email', 'firstname', 'username', 'date_joined', 'last_login', 'is_admin') # Whats going to be displayed as headers in the admin
+    list_display = ('email', 'id', 'firstname', 'username', 'date_joined', 'last_login', 'is_admin') # Whats going to be displayed as headers in the admin
     search_fields = ('email', 'username')
     readonly_fields = ('date_joined', 'last_login')
 

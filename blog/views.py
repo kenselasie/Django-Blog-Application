@@ -4,7 +4,7 @@ from .serializers import PostSerializer
 from rest_framework.response import Response
 
 # Create your views here.
-class PostsView(APIView):
+class PostList(APIView):
     def get(self, request):
         post = Post.objects.all()
         serializer = PostSerializer(post, many=True)
