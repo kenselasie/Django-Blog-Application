@@ -47,8 +47,8 @@ class Users(AbstractBaseUser):
     lastname = models.CharField(max_length=60, default=None, null=True)
     othernames = models.CharField(max_length=60, default=None, null=True, blank=True)
     phone_num = models.CharField(max_length=60, unique=True)
-    profile = models.CharField(max_length=700, default=None, null=True)
-    dependent = models.ForeignKey('self', default=None, null=True, on_delete=models.CASCADE)
+    profile = models.TextField(max_length=300, default=None, null=True, blank=True)
+    dependent = models.ForeignKey('self', default=None, null=True, blank=True, on_delete=models.CASCADE)
     role = models.CharField(max_length=60, default='Owner')
 
     username = models.CharField(max_length=60, unique=True) # Required
