@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from decouple import config # This is a library for hiding sensitive info into evn files
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,12 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=(l$fqbk=abll*0bdtt(ftsd!=9%tl0_k_x(0u$5ht1kdi%73='
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool, default=True)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'localhost:3000']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'localhost:3000', '*']
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
@@ -99,11 +100,11 @@ WSGI_APPLICATION = 'aNewsApp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BlogNewsApp',
-        'USER': 'root',
-        'PASSWORD': 'peace!!!!!',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'NAME':  config("DATABASE_NAME"),
+        'USER': config("DATABASE_USER"),
+        'PASSWORD':  config("DATABASE_PASSWORD"),
+        'HOST': config("DATABASE_HOST"),
+        'PORT': config("DATABASE_PORT"),
     }
 }
 
